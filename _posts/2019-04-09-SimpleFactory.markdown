@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 设计模式之 简单工厂模式（Simple Factory） Java实现
-date: 2019-04-09 21:58:23.000000000 +08:00
+date: 2019-04-09 20:58:23.000000000 +08:00
 tags: Design Pattern
 ---
 
