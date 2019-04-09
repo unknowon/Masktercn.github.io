@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>设计模式之 简单工厂模式（Simple Factory） Java实现</title>
+  <meta name="description" content="#设计模式之 简单工厂模式（Simple Factory）">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="设计模式之 简单工厂模式（Simple Factory） Java实现">
+  <meta name="twitter:description" content="#设计模式之 简单工厂模式（Simple Factory）">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="设计模式之 简单工厂模式（Simple Factory） Java实现">
+  <meta property="og:description" content="#设计模式之 简单工厂模式（Simple Factory）">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/04/SimpleFactory/">
+  <link rel="alternate" type="application/rss+xml" title="Maskter" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/#blog" title="前往 Maskter 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Maskter logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Maskter" class="blog-button">Maskter</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">A blog for Sichao Wang</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">write my coding problem & life idea.</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+        
+        <p class="panel-cover__description"><a href="https://github.com/Masktercn" target="_blank">Visit me</a></p>
+        
+        
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">Blog</a></li>
+                
+                  <li class="navigation__item"><a href="https://github.com/Masktercn" target="_blank" title="My Projects">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+          
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+  
+  
+
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2019-04-09 21:58:23 +0800" itemprop="datePublished" class="post-meta__date date">2019-04-09</time> &#8226; <span class="post-meta__tags tags">Design Pattern</span>
+    </div>
+    <h1 class="post-title">设计模式之 简单工厂模式（Simple Factory） Java实现</h1>
+  </header>
+
+  <section class="post">
+    <p>#设计模式之 简单工厂模式（Simple Factory）</p>
+
+<p>传入一个值，得到一个产品</p>
+
+<p>这个就是简单工厂模式，省略了中间这个产品生成的过程</p>
+
+<p>举个栗子</p>
+
+<p>我说要有水，于是就有了水</p>
+
+<p>至于水是怎么来的，是大自然的搬运工搬来的还是天上下的都不重要，反正就是得到了水</p>
+
+<p>然后我再说要有面包，于是就有了面包，至于面包是怎么做出来的我并不知道。</p>
+
+<p>这个就很像是在餐馆里点菜，你告诉服务员，你需要  蒸羊羔,蒸熊掌,蒸鹿尾儿,烧花鸭,烧雏鸡儿,烧子鹅,卤煮咸鸭</p>
+
+<p>服务员就给你上了这些菜，但是后厨的加工过程你并不清楚。</p>
+
+<hr />
+
+<p>在简单工厂模式里有几个角色</p>
+
+<p>工厂（Creator）角色</p>
+
+<p>抽象产品（Product）角色</p>
+
+<p>具体产品（Concrete Product）角色  </p>
+
+<p>  </p>
+
+<p>而用上面点菜的栗子来说就相当于 </p>
+
+<p>餐馆  ==  工厂</p>
+
+<p>菜名  ==  抽象产品</p>
+
+<p>吃到嘴里的菜  ==  具体产品</p>
+
+<p>下面用这个栗子来写个小程序</p>
+
+<p>首先我们需要一个餐馆</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestaurantFacroty</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="n">Dish</span> <span class="n">dish</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">order</span><span class="o">(</span><span class="n">String</span> <span class="n">dishName</span><span class="o">){</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">dishName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"SteamedBearsPaw"</span><span class="o">)){</span>
+			<span class="n">dish</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SteamedBearsPaw</span><span class="o">();</span>
+			<span class="n">dish</span><span class="o">.</span><span class="na">cook</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">dishName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"SteamedLamb"</span><span class="o">)){</span>
+			<span class="n">dish</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SteamedLamb</span><span class="o">();</span>
+			<span class="n">dish</span><span class="o">.</span><span class="na">cook</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">else</span><span class="o">{</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"客官，没有这个菜呀"</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>接下来，我们来两个菜</p>
+
+<p>他们需要实现同一个接口</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Dish</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>蒸熊掌</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SteamedBearsPaw</span> <span class="kd">implements</span> <span class="n">Dish</span> <span class="o">{</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"蒸熊掌上菜啦"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>  蒸羊羔</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SteamedLamb</span> <span class="kd">implements</span> <span class="n">Dish</span> <span class="o">{</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"蒸羊羔上菜啦"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>好了，接下来王某人来点餐了</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WangMouRen</span> <span class="o">{</span>
+		<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">RestaurantFacroty</span> <span class="n">restaurant</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestaurantFacroty</span><span class="o">();</span>
+			<span class="n">restaurant</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="s">"SteamedBearsPaw"</span><span class="o">);</span>
+			<span class="n">restaurant</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="s">"SteamedLamb"</span><span class="o">);</span>
+			<span class="n">restaurant</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="s">"SteamedDeerTail"</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+<p>我告诉餐馆，我要一个蒸熊掌、蒸羊羔、蒸鹿尾儿，餐馆就给我上了菜，没有蒸鹿尾儿所以说了没有这个菜</p>
+
+<p>好了。这个就是简单工厂模式（Simple Factory）</p>
+
+  </section>
+</article>
+
+<section class="read-more">
+   
+   
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2019/04/NewStart/" title="link to New Start">New Start</a></h2>
+       <p class="excerpt">转眼大学生活就快要过完了，即将忙于考研。回首三年，由于自己的懒，blog只有兴趣来了才写一写，所以存量也不多，有很多东西用了以后就忘，再需要用的时候却找不到任何自己的笔记。所以今天搭建此blog，用于记录自己的学习过程、心路历程。希望自己能坚持下去。&hellip;</p>
+       <div class="post-list__meta"><time datetime="2019-04-09 19:42:23 +0800" class="post-list__meta--date date">2019-04-09</time> &#8226; <span class="post-list__meta--tags tags">blog</span><a class="btn-border-small" href=/2019/04/NewStart/>继续阅读</a></div>
+   </div>
+   
+</section>
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/04/SimpleFactory/";
+        this.page.identifier = "/2019/04/SimpleFactory/";
+    };
+
+    var disqus_shortname = 'maskter';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+        <!--
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2019-04-09 生成，感谢 <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 <a href="http://maskter.cn">@Maskter</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2019</span>
+        -->
+    </footer> 
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>
