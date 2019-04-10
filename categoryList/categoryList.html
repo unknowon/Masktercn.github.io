@@ -4,7 +4,7 @@ layout: default
 
 <div class="main-post-list hidden">
 
-  <ol class="posts-list">
+  <ol class="post-list">
     {% for category in site.categories %}
     <a class="btn-border-small-dark" href="/category/{{ category | first }}/#blog">{{ category | first }}({{ category | last | size }})</a>
     {% endfor %}
