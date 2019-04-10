@@ -23,7 +23,7 @@ blog_button:
 # Navigation buttons in the front page.
 nav:
     - {title: Projects, description: My Projects, url: 'https://github.com/Masktercn'}
-    - {title: category, description: Blog's Category, url: 'blog.maskter.cn/categoryList/index.html/#blog'}
+    - {title: category, description: Blog's Category, url: '/categoryList/index.html/#blog'}
     # - {title: Another Button, description: A button, url: 'http://example.com'}
 
 # Pagination
