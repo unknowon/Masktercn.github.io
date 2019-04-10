@@ -6,7 +6,7 @@ layout: default
 
   <ol class="post-list">
     {% for category in site.categories %}
-    <a class="btn-border-small-dark" href="/category/{{ category | first }}/index.html/#blog">{{ category | first }}({{ category | last | size }})</a>
+    <a class="btn-border-small-dark" href="/category/{{ category | first }}/#blog">{{ category | first }}({{ category | last | size }})</a>
     {% endfor %}
     <hr class="post-list__divider" />
 
