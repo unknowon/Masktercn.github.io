@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Blog创建小记</title>
+  <meta name="description" content="首先放出我的Blog：Maskter">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Blog创建小记">
+  <meta name="twitter:description" content="首先放出我的Blog：Maskter">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Blog创建小记">
+  <meta property="og:description" content="首先放出我的Blog：Maskter">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/04/CreateBlog/">
+  <link rel="alternate" type="application/rss+xml" title="Maskter" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 Maskter 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Maskter logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Maskter" class="blog-button">Maskter</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">A blog for Sichao Wang</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">write my coding problem & life idea.</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">Blog</a></li>
+                
+                  <li class="navigation__item"><a href="/categoryList/categoryList/#blog" title="Blog's Category">Category</a></li>
+                
+                  <li class="navigation__item"><a href="https://github.com/Masktercn" title="My Projects on Github">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <!-- <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li> -->
+
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2019-04-10 19:43:23 +0800" itemprop="datePublished" class="post-meta__date date">2019-04-10</time> &#8226; <span class="post-meta__tags tags">Blog Operations</span>
+    </div>
+    <h1 class="post-title">Blog创建小记</h1>
+  </header>
+
+  <section class="post">
+    <p>首先放出我的Blog：<a href="https://blog.maskter.cn">Maskter</a></p>
+<hr />
+
+<p>##创建步骤</p>
+<ul>
+  <li>
+    <p>==<strong>申请</strong><a href="https://pages.github.com">Github Pages</a>==</p>
+
+    <p>网站首页就有创建教程，按部就班就好。</p>
+
+    <p>完成以后会得到一个username.github.io的resp</p>
+
+    <p>并且能够访问到hello world</p>
+
+    <p>可以继续按照这个教程导入模版等。</p>
+
+    <p>此时，blog已经有了雏形。</p>
+
+    <p>如果不满足于此，那就继续。</p>
+
+    <p>(这里先把这个resp下载下来或者clone下来，后面会用到)</p>
+  </li>
+  <li>
+    <p>==<strong>安装配置jekyll</strong>==</p>
+
+    <p>我的blog是使用jekyll来写的，所以需要在自己电脑上配置jekyll。</p>
+
+    <p>电脑是mac，以下是mac的配置方法。</p>
+
+    <p>执行<code class="highlighter-rouge">sudo gem install jekyll</code></p>
+
+    <p>就能安装jekyll，但是在安装的时候踩了一个坑</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ERROR: While executing gem ... (Gem::FilePermissionError)
+  You don't have write permissions for the /usr/bin directory.
+</code></pre></div>    </div>
+    <p>问了谷哥之后找到方法</p>
+
+    <p>执行<code class="highlighter-rouge">sudo gem install -n /usr/local/bin jekyll</code></p>
+
+    <p>成功安装</p>
+
+    <p>接下来进入到之前clone的resp的路径</p>
+
+    <p><code class="highlighter-rouge">cd /ideaProjects/githubBlog/Masktercn.github.io</code></p>
+
+    <p>执行<code class="highlighter-rouge">bundle install</code></p>
+
+    <p>如果出现提示</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  -bash: bundle: command not found
+</code></pre></div>    </div>
+
+    <p>那就说明需要安装bundle，根据之前踩的坑</p>
+
+    <p>执行<code class="highlighter-rouge">sudo gem install -n /usr/local/bin bundle</code></p>
+
+    <p>安装成功以后执行<code class="highlighter-rouge">bundle install</code></p>
+
+    <p>出现一堆输出，并且没看见错误就说明成功了。</p>
+
+    <p>接下来 执行<code class="highlighter-rouge">bundle exec jekyll serve</code></p>
+
+    <p>把blog在本地跑起来</p>
+
+    <p>出现</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Configuration file: /Users/lulu/IdeaProjects/githubBlog/Masktercn.github.io/_config.yml
+          Source: /Users/lulu/IdeaProjects/githubBlog/Masktercn.github.io
+     Destination: /Users/lulu/IdeaProjects/githubBlog/Masktercn.github.io/_site
+ Incremental build: disabled. Enable with --incremental
+    Generating...
+                  done in 0.593 seconds.
+ Auto-regeneration: enabled for '/Users/lulu/IdeaProjects/githubBlog/Masktercn.github.io'
+  Server address: http://127.0.0.1:4000
+Server running... press ctrl-c to stop.
+</code></pre></div>    </div>
+    <p>就成功了，浏览器访问<code class="highlighter-rouge">http://127.0.0.1:4000/</code>就可以看到效果了</p>
+
+    <p>修改过什么东西以后执行</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git add --all
+  git commit -m "commit information"
+  git push -u origin master
+</code></pre></div>    </div>
+    <p>提交到github</p>
+
+    <p>搞定。</p>
+  </li>
+  <li>
+    <p>==<strong>绑定自己的域名</strong>==</p>
+
+    <p>在根目录下新建文件<code class="highlighter-rouge">CNAME</code></p>
+
+    <p>在里面写上你的域名，比如我的<code class="highlighter-rouge">blog.maskter.cn</code>(注意，不要带协议 比如http)</p>
+
+    <p>保存以后在你买域名的地方解析一下</p>
+
+    <p><img src="/assets/images/blogCreateImg1.png" alt="blogCreateImg1" /></p>
+
+    <p>解析完成以后就搞定啦</p>
+
+    <p>写的文章放在<code class="highlighter-rouge">_posts</code>目录下，markdown编辑我用的是macdown。</p>
+  </li>
+</ul>
+
+  </section>
+</article>
+
+<!-- <section class="read-more">
+   
+
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2019/04/SimpleFactory/" title="link to 设计模式之 简单工厂模式（Simple Factory） Java实现">设计模式之 简单工厂模式（Simple Factory） Java实现</a></h2>
+       <p class="excerpt">#设计模式之 简单工厂模式（Simple Factory）传入一个值，得到一个产品这个就是简单工厂模式，省略了中间这个产品生成的过程举个栗子我说要有水，于是就有了水至于水是怎么来的，是大自然的搬运工搬来的还是天上下的都不重要，反正就是得到了水然后我再说要有面包，于是就有了面包，至于面包是怎么做出来的我并不知道。这个就很像是在餐馆里点菜，你告诉服务员，你需要  蒸羊羔,蒸熊掌,蒸鹿尾儿,烧花鸭,烧雏鸡儿,烧子鹅,卤煮咸鸭服务员就给你上了这些菜，但是后厨的加工过程你并不清楚。在简单工厂模式里有...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2019-04-08 19:58:23 +0800" class="post-list__meta--date date">2019-04-08</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2019/04/SimpleFactory/>继续阅读</a></div>
+   </div>
+   
+</section> -->
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/04/CreateBlog/";
+        this.page.identifier = "/2019/04/CreateBlog/";
+    };
+
+    var disqus_shortname = 'maskter';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+        <!--
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2019-04-10 生成，感谢 <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 <a href="http://maskter.cn">@Maskter</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2019</span>
+        -->
+    </footer> 
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>
