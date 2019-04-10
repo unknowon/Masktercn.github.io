@@ -28,6 +28,15 @@
   margin-left: 10px;
 }
 
+.btn-border-small-dark {
+  border: 1px solid $gray-dark;
+  border-radius: 20px;
+  padding: 6px 8px;
+  font-size: .8em;
+  margin-left: 10px;
+  color: $gray-dark;
+}
+
 .btn-secondary {
   border-color: $secondary-color;
   color: $secondary-color;

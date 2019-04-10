@@ -501,6 +501,14 @@ hr {
   font-size: .8em;
   margin-left: 10px; }
 
+.btn-border-small-dark {
+  border: 1px solid #999999;
+  border-radius: 20px;
+  padding: 6px 8px;
+  font-size: .8em;
+  margin-left: 10px;
+  color: #999999; }
+
 .btn-secondary {
   border-color: #5BA4E5;
   color: #5BA4E5; }

@@ -2,7 +2,7 @@
 layout: post
 title: 设计模式之 简单工厂模式（Simple Factory） Java实现
 date: 2019-04-08 20:58:23.000000000 +09:00
-tags: Design Pattern
+category: Design Pattern
 ---
 
 #设计模式之 简单工厂模式（Simple Factory）
