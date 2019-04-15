@@ -1,0 +1,71 @@
+---
+layout: post
+title: C语言 链表 求某班20名学生的最高成绩
+date: 2017-06-2 20:43:23.000000000 +09:00
+category: C Program
+---
+任务描述  
+         某班级有20名学生,要求从键盘输入每个学生的课程成绩（百分制），并输出最高成绩者。  
+功能要求  
+             ①找出成绩最高者，并输出该成绩  
+             ②用链表实现存储（每名学生包括姓名和成绩两项），并用函数实现链表的创建，输出和查找  
+             
+```c
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct {
+	char name[10];
+	int score;
+}t_student;
+typedef struct node {
+	t_student stu;
+	struct node *next;
+}linkList;
+
+int createList(linkList *head, int n) 
+{
+	linkList *s, *p;
+	int i;
+	p = head;
+	for (i = 0; i < n; i++) {
+		s = (linkList*)malloc(sizeof(linkList));
+		scanf("%s", s->stu.name);
+		scanf("%d", &s->stu.score);
+		s->next = p->next;
+		p->next = s;
+		p = s;
+	}
+	return 0;
+}
+
+int output(t_student *stu)
+{
+	printf("%s   ", stu->name);
+	printf("%d\n", stu->score);
+}
+
+int find(t_student *stu, linkList *head)
+{
+	linkList *p = head;
+	p = head->next;
+	*stu = p->stu;
+	while (p->next!=NULL) {
+		p = p->next;
+		if (p->stu.score > stu->score) {
+			*stu = p->stu;
+		}
+	}
+	return 0;
+}
+int main()
+{
+	linkList head;
+	head.next = NULL;
+	t_student result;
+	createList(&head, 20);
+	find(&result, &head);
+	output(&result);
+	system("pause");
+	return 0;
+}
+```

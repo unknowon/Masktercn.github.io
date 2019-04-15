@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>设计模式之 迭代器模式（Iterator Pattern） Java实现</title>
+  <meta name="description" content="所谓迭代器模式，就是把集合的数据和遍历分开">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="设计模式之 迭代器模式（Iterator Pattern） Java实现">
+  <meta name="twitter:description" content="所谓迭代器模式，就是把集合的数据和遍历分开">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="设计模式之 迭代器模式（Iterator Pattern） Java实现">
+  <meta property="og:description" content="所谓迭代器模式，就是把集合的数据和遍历分开">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2019/02/IteratorPattern/">
+  <link rel="alternate" type="application/rss+xml" title="Maskter" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 Maskter 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Maskter logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Maskter" class="blog-button">Maskter</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">A blog for Sichao Wang</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">write my coding problem & life idea.</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">Blog</a></li>
+                
+                  <li class="navigation__item"><a href="/categoryList/categoryList/#blog" title="Blog's Category">Category</a></li>
+                
+                  <li class="navigation__item"><a href="https://github.com/Masktercn" title="My Projects on Github">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <!-- <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li> -->
+
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2019-02-07 19:43:23 +0800" itemprop="datePublished" class="post-meta__date date">2019-02-07</time> &#8226; <span class="post-meta__tags tags">Design Pattern</span>
+    </div>
+    <h1 class="post-title">设计模式之 迭代器模式（Iterator Pattern） Java实现</h1>
+  </header>
+
+  <section class="post">
+    <p>所谓迭代器模式，就是把集合的数据和遍历分开</p>
+
+<p>让遍历集合依赖于迭代器，而不依赖于具体的集合</p>
+
+<p>从而可以达到代码复用</p>
+
+<p>java中的增强for循环就是迭代器模式的应用，要使用增强for循环语法的集合，就要实现java.util.Iterator接口。</p>
+
+<p>在迭代器模式中，需要几个角色</p>
+
+<ul>
+  <li>Iterator(迭代器)</li>
+  <li>ConcreteIterator(具体的迭代器)</li>
+  <li>Aggregate(集合)</li>
+  <li>ConcreteAggregate(具体的集合)
+它们的类图是这样的：
+<img src="/assets/images/IteratorPatternImg1.png" alt="类图" /></li>
+</ul>
+
+<p>下面用一个具体的例子来理解迭代器模式</p>
+
+<p>用迭代器模式实现对书架的遍历</p>
+
+<p>根据上面迭代器模式的类图，书架和迭代器需要以下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Book</th>
+      <th>书的类</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BookShelf</td>
+      <td>书架的类</td>
+    </tr>
+    <tr>
+      <td>BookShelfIterator</td>
+      <td>书架的迭代器</td>
+    </tr>
+    <tr>
+      <td>Iterator</td>
+      <td>迭代器的接口</td>
+    </tr>
+    <tr>
+      <td>Aggregate</td>
+      <td>集合的接口</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>类图如下：
+<img src="/assets/images/IteratorPatternImg2.png" alt="类图2" /></p>
+
+<p>代码实现如下</p>
+
+<p>书的类：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">cn</span><span class="o">.</span><span class="na">wsichao</span><span class="o">.</span><span class="na">iteratorPattern</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>集合接口：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">cn</span><span class="o">.</span><span class="na">wsichao</span><span class="o">.</span><span class="na">iteratorPattern</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Aggregate</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Iterator</span> <span class="nf">iterator</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="err">迭代器接口：</span>
+
+<span class="kn">package</span> <span class="n">cn</span><span class="o">.</span><span class="na">wsichao</span><span class="o">.</span><span class="na">iteratorPattern</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Iterator</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">();</span>
+    <span class="n">Object</span> <span class="nf">next</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>书架类：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">cn</span><span class="o">.</span><span class="na">wsichao</span><span class="o">.</span><span class="na">iteratorPattern</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookShelf</span> <span class="kd">implements</span> <span class="n">Aggregate</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Book</span><span class="o">[]</span> <span class="n">books</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">last</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">BookShelf</span><span class="o">(</span><span class="kt">int</span> <span class="n">maxsize</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">books</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Book</span><span class="o">[</span><span class="n">maxsize</span><span class="o">];</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Book</span> <span class="nf">getBookAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">){</span>
+        <span class="k">return</span> <span class="n">books</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">appendBook</span><span class="o">(</span><span class="n">Book</span> <span class="n">book</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">books</span><span class="o">[</span><span class="n">last</span><span class="o">]</span> <span class="o">=</span> <span class="n">book</span><span class="o">;</span>
+        <span class="n">last</span><span class="o">++;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getLength</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">last</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Iterator</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">BookShelfIterator</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>书架的迭代器类：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">cn</span><span class="o">.</span><span class="na">wsichao</span><span class="o">.</span><span class="na">iteratorPattern</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookShelfIterator</span> <span class="kd">implements</span> <span class="n">Iterator</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">BookShelf</span> <span class="n">bookShelf</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">index</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">BookShelfIterator</span><span class="o">(</span><span class="n">BookShelf</span> <span class="n">bookShelf</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">bookShelf</span> <span class="o">=</span> <span class="n">bookShelf</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">index</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">bookShelf</span><span class="o">.</span><span class="na">getLength</span><span class="o">()){</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span><span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="n">bookShelf</span><span class="o">.</span><span class="na">getBookAt</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+        <span class="n">index</span><span class="o">++;</span>
+        <span class="k">return</span> <span class="n">book</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>最后测试一下：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">cn</span><span class="o">.</span><span class="na">wsichao</span><span class="o">.</span><span class="na">iteratorPattern</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BookShelf</span> <span class="n">bookShelf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BookShelf</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+
+        <span class="n">bookShelf</span><span class="o">.</span><span class="na">appendBook</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">"java"</span><span class="o">));</span>
+        <span class="n">bookShelf</span><span class="o">.</span><span class="na">appendBook</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">"c"</span><span class="o">));</span>
+        <span class="n">bookShelf</span><span class="o">.</span><span class="na">appendBook</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">"C++"</span><span class="o">));</span>
+        <span class="n">bookShelf</span><span class="o">.</span><span class="na">appendBook</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">"python"</span><span class="o">));</span>
+
+        <span class="n">Iterator</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">bookShelf</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+        <span class="k">while</span><span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
+            <span class="n">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="o">(</span><span class="n">Book</span><span class="o">)</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">book</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>结果：</p>
+
+<blockquote>
+  <p>java<br />
+c<br />
+C++<br />
+python</p>
+
+  <p>Process finished with exit code 0</p>
+</blockquote>
+
+
+  </section>
+</article>
+
+<!-- <section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2019/04/NewStart/" title="link to New Start">New Start</a></h2>
+       <p class="excerpt">转眼大学生活就快要过完了，即将忙于考研。回首三年，由于自己的懒，blog只有兴趣来了才写一写，所以存量也不多，有很多东西用了以后就忘，再需要用的时候却找不到任何自己的笔记。所以今天搭建此blog，用于记录自己的学习过程、心路历程。希望自己能坚持下去。&hellip;</p>
+       <div class="post-list__meta"><time datetime="2019-04-08 18:42:23 +0800" class="post-list__meta--date date">2019-04-08</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2019/04/NewStart/>继续阅读</a></div>
+   </div>
+   
+
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/07/DataStructure9/" title="link to 数据结构 C语言 最小生成树 prim kruskal">数据结构 C语言 最小生成树 prim kruskal</a></h2>
+       <p class="excerpt">【问题描述】在n个城市之间建设网络，只需保证连通即可，求最经济的架设方法。对于图，其生成树中的边也带权，将生成树各边的权值总和称为生成树的权，并将权值最小的生成树称为最小生成树（Minimun Spanning Tree），简称为MST。有两种非常典型的算法：Prim算法和kruskal算法。【任务要求】设计程序完成如下功能：对给定的网和起点，用PRIM算法和kruskal算法的基本思想求解出所有的最小生成树。存储结构可自行选择。【测试数据】6个顶点，10条边，边及权值如下0 1 60 2...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-07-03 19:43:23 +0800" class="post-list__meta--date date">2017-07-03</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2017/07/DataStructure9/>继续阅读</a></div>
+   </div>
+   
+</section> -->
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2019/02/IteratorPattern/";
+        this.page.identifier = "/2019/02/IteratorPattern/";
+    };
+
+    var disqus_shortname = 'maskter';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+        <!--
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2019-04-15 生成，感谢 <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 <a href="http://maskter.cn">@Maskter</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2019</span>
+        -->
+    </footer> 
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

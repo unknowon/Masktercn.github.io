@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>数据结构 C语言 模式匹配 文件读取</title>
+  <meta name="description" content="【问题描述】文学研究人员需要统计某篇文章中某些词的出现次数。试写一个实现这一目标的文字统计系统【任务要求】文章存于一个文本文件中。待统计的词汇集合要一次输入完毕，即统计工作必须在程序的一次运行之后就全部完成。程序的输出结果是每个词的出现次数格式自行设计。【测试数据】与程序放在同一目录下的记事本文件xxx.txt,...">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="数据结构 C语言 模式匹配 文件读取">
+  <meta name="twitter:description" content="【问题描述】文学研究人员需要统计某篇文章中某些词的出现次数。试写一个实现这一目标的文字统计系统【任务要求】文章存于一个文本文件中。待统计的词汇集合要一次输入完毕，即统计工作必须在程序的一次运行之后就全部完成。程序的输出结果是每个词的出现次数格式自行设计。【测试数据】与程序放在同一目录下的记事本文件xxx.txt,...">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="数据结构 C语言 模式匹配 文件读取">
+  <meta property="og:description" content="【问题描述】文学研究人员需要统计某篇文章中某些词的出现次数。试写一个实现这一目标的文字统计系统【任务要求】文章存于一个文本文件中。待统计的词汇集合要一次输入完毕，即统计工作必须在程序的一次运行之后就全部完成。程序的输出结果是每个词的出现次数格式自行设计。【测试数据】与程序放在同一目录下的记事本文件xxx.txt,...">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2017/07/DataStructure4/">
+  <link rel="alternate" type="application/rss+xml" title="Maskter" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 Maskter 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Maskter logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Maskter" class="blog-button">Maskter</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">A blog for Sichao Wang</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">write my coding problem & life idea.</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">Blog</a></li>
+                
+                  <li class="navigation__item"><a href="/categoryList/categoryList/#blog" title="Blog's Category">Category</a></li>
+                
+                  <li class="navigation__item"><a href="https://github.com/Masktercn" title="My Projects on Github">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <!-- <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li> -->
+
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-07-03 19:43:23 +0800" itemprop="datePublished" class="post-meta__date date">2017-07-03</time> &#8226; <span class="post-meta__tags tags">Data structure</span>
+    </div>
+    <h1 class="post-title">数据结构 C语言 模式匹配 文件读取</h1>
+  </header>
+
+  <section class="post">
+    <p>【问题描述】<br />
+文学研究人员需要统计某篇文章中某些词的出现次数。试写一个实现这一目标的文字统计系统<br />
+【任务要求】<br />
+文章存于一个文本文件中。待统计的词汇集合要一次输入完毕，即统计工作必须在程序的一次运行之后就全部完成。程序的输出结果是每个词的出现次数格式自行设计。<br />
+【测试数据】<br />
+与程序放在同一目录下的记事本文件xxx.txt,内容如下“某日，一个大学老师提问学生，树上有十只鸟，开枪打死一只，还剩几只？学生反问：是无声手枪吗？不是枪声有多大？80-100分贝。在这个城市打鸟犯不犯法？不犯。您确定那只鸟真的被打死了吗？确定。这时，老师已经不耐烦了：“，你告诉我还剩几只鸟就行了，OK？树上的鸟里有没有聋子？没有。有没有被关在笼子里挂在树上的？没有。边上有没有其他的树，树上还有没有其他的鸟？没有。如果有鸟怀孕了，算不算肚子里的小鸟？不算。 打鸟的人眼有没有花？没有花，就十只。老师已经是满头是汗，且下课铃响，但学生继续问：有没有傻得不怕死的鸟？都怕死。会不会一枪打死两只？不会。学生满怀信心地说：，如果您的回答没有骗人“打死的鸟要是挂在树上没有掉下来，那么就剩一只，如果掉下来，就一只不剩。老师当即口吐白沫倒在地上！”<br />
+统计文档中的“学生”出现的次数。</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;string.h&gt;
+</span>
+<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">5000</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+<span class="p">}</span><span class="n">string</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">readText</span><span class="p">(</span><span class="n">string</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fileName</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+	<span class="kt">char</span> <span class="n">ch</span><span class="p">;</span>
+	<span class="kt">long</span> <span class="n">len</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"读取失败</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">fseek</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="mi">0L</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+	<span class="n">len</span> <span class="o">=</span> <span class="n">ftell</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+	<span class="n">rewind</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+	<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+	<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">ch</span> <span class="o">=</span> <span class="n">fgetc</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+		<span class="n">s</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ch</span><span class="p">;</span>
+		<span class="n">i</span><span class="o">++</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">s</span><span class="o">-&gt;</span><span class="n">len</span> <span class="o">=</span> <span class="n">len</span><span class="p">;</span>
+	<span class="n">s</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">[</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+	<span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">mspp</span><span class="p">(</span><span class="n">string</span> <span class="o">*</span><span class="n">s1</span><span class="p">,</span> <span class="n">string</span> <span class="o">*</span><span class="n">s2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">s1</span><span class="o">-&gt;</span><span class="n">len</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">s2</span><span class="o">-&gt;</span><span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">s1</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">s2</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
+			<span class="n">i</span><span class="o">++</span><span class="p">;</span>
+			<span class="n">j</span><span class="o">++</span><span class="p">;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">s2</span><span class="o">-&gt;</span><span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+				<span class="n">count</span><span class="o">++</span><span class="p">;</span>
+				<span class="k">return</span> <span class="n">i</span> <span class="o">-</span> <span class="n">s2</span><span class="o">-&gt;</span><span class="n">len</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="p">{</span>
+			<span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+			<span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">statistics</span><span class="p">(</span><span class="n">string</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">string</span> <span class="o">*</span><span class="n">ss</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">k</span><span class="p">;</span>
+	<span class="n">k</span> <span class="o">=</span> <span class="n">mspp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">len</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">k</span> <span class="o">=</span> <span class="n">mspp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="n">ss</span><span class="o">-&gt;</span><span class="n">len</span><span class="p">);</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+			<span class="k">break</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="n">ss</span><span class="p">;</span>
+	<span class="n">readText</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="s">"Text.txt"</span><span class="p">);</span>
+	<span class="n">strcpy</span><span class="p">(</span><span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">,</span> <span class="s">"学生"</span><span class="p">);</span>
+	<span class="n">ss</span><span class="p">.</span><span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">);</span>
+	<span class="n">statistics</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ss</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"学生出现的次数是:%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+	<span class="n">system</span><span class="p">(</span><span class="s">"pause"</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
+</article>
+
+<!-- <section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/07/DataStructure5/" title="link to 数据结构 C语言 链式二叉树">数据结构 C语言 链式二叉树</a></h2>
+       <p class="excerpt">【问题描述】采用二叉链表作为二叉树的存储结构实现各项功能【任务要求】(1)	 输入二叉树的先序序列，建立二叉树；(2)	  用程序实现二叉树的中序遍历；(3)	  编写程序求二叉树的深度； 【测试数据】测试数据：  （1）输入先序遍历-+a##*b##-c##d##/e##f##；查看其中序遍历、后序遍历和该二叉树的深度。（2）输入先序遍历ab#d##ce###;查看其中序遍历、后序遍历和该二叉树的深度。#include&lt;stdio.h&gt;#include&lt;stdlib.h...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-07-03 19:43:23 +0800" class="post-list__meta--date date">2017-07-03</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2017/07/DataStructure5/>继续阅读</a></div>
+   </div>
+   
+
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/07/DataStructure3/" title="link to 数据结构 C语言 队列 迷宫问题">数据结构 C语言 队列 迷宫问题</a></h2>
+       <p class="excerpt">【问题描述】以一个mXn的长方阵表示迷宫，0和1分别表示迷宫中的通路和障碍。设计一个程序，对任意设定的迷宫，求出一条从入口到出口的通路，或得出没有通路的结论。【任务要求】实现队列求解迷宫从入口到出口的最短通路。【测试数据】迷宫的测试数据如下：左上角（0，1）为入口，右下角（8，9）为出口。#include&lt;Stdio.h&gt;#include&lt;stdlib.h&gt;#include&lt;Windows.h&gt;typedef struct {	int x;	int y;...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-07-03 19:43:23 +0800" class="post-list__meta--date date">2017-07-03</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2017/07/DataStructure3/>继续阅读</a></div>
+   </div>
+   
+</section> -->
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2017/07/DataStructure4/";
+        this.page.identifier = "/2017/07/DataStructure4/";
+    };
+
+    var disqus_shortname = 'maskter';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+        <!--
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2019-04-15 生成，感谢 <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 <a href="http://maskter.cn">@Maskter</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2019</span>
+        -->
+    </footer> 
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

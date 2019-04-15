@@ -1,0 +1,326 @@
+---
+layout: post
+title: C语言 通讯录
+date: 2017-06-30 20:43:23.000000000 +09:00
+category: C Program
+---
+任务描述  
+使用C语言实现通讯录。  
+功能要求  
+（1）创建通讯录。输入学生的姓名、学号和电话号码等，并将它们存放在对应的数组中；每输入一组数据，记录数增1。  
+（2）显示通讯录。将记录学生姓名、学号和电话号码的数组中的数据一一输出到屏幕上，可以根据实际记录数确定循环次数。  
+（3）查询通讯录。分别按学号和姓名进行查询，查询时将输入的信息通过循环与相应数组成员一一进行比较。  
+（4）修改通讯录。输入需要修改记录的学号，通过循环查找到该记录后，再输入新数据替代原有数据。  
+（5）添加通讯录。判断输入的学号是否重复，若不重复再将输入的信息添加到对应的数组中，每输入一组数据，记录数增1。  
+（6）删除通讯录。分别按学号和姓名进行删除。  
+（7）排序通讯录。分别按学号和姓名进行排序。排序方式可以是升序或降序。  
+（8）退出。  
+
+```c
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define SIZE_NAME 10
+#define SIZE_ID 20
+#define SIZE_PHONE 20
+
+int Record = 0;
+
+typedef struct {
+	char name[SIZE_NAME];
+	char id[SIZE_ID];
+	char phone[SIZE_PHONE];
+}pInfo;
+
+typedef struct node{
+	pInfo people;
+	struct node *next;
+}linkList;
+
+int menu();
+int create(linkList *head);
+int display(linkList *head);
+int search(linkList *head, char *info);
+int modify(linkList *head, char *pid);
+int add2(linkList *head, char *pid);
+int delt(linkList *head, char *info);
+int compare(char *str1, char *str2);
+int sort_id(linkList *head, int boolean);//1升序 0降序	
+int sort_name(linkList *head, int boolean);//1升序 0降序
+
+int main()
+{
+	linkList head, *p;
+	char info[SIZE_ID];
+	int temp, chus, i;
+	head.next = NULL;
+
+	while (1) {
+		switch (menu()) {
+		case 1:
+			create(&head);
+			break;
+		case 2:
+			display(&head);
+			break;
+		case 3:
+			printf("请输入需要查询的学号或姓名: ");
+			scanf("%s", info);
+			p = &head;
+			p = p->next;
+			for (i = 0; i < search(&head, info); i++) {
+				p = p->next;
+			}
+			printf("搜索到:\n");
+			printf("\t\t\t\t联系人\n");
+			printf("--------------------------------------------------------------------------------\n");
+			printf("\t\t学号\t\t姓名\t\t\t电话\n");
+			printf("--------------------------------------------------------------------------------\n");
+			printf("%20s\t", p->people.id);
+			printf("%10s\t", p->people.name);
+			printf("%20s\n", p->people.phone);
+			search(&head, info);
+			break;
+		case 4:
+			printf("请输入需要修改的学号: ");
+			scanf("%s", info);
+			modify(&head, info);
+			break;
+		case 5:
+			printf("请输入需要添加的学号: ");
+			scanf("%s", info);
+			add2(&head, info);
+			break;
+		case 6:
+			printf("请输入需要删除的学号或姓名: ");
+			scanf("%s", info);
+			delt(&head, info);
+			break;
+		case 7:
+			printf("请选择排序方式:\n\t1.按学号排序\n\t2.按姓名排序\n");
+			scanf("%d", &chus);
+			switch (chus) {
+			case 1:
+				printf("请输入1或0:\n\t1:升序\n\t0:降序\n");
+				scanf("%d", &temp);
+				sort_id(&head, temp);
+				break;
+			case 2:
+				printf("请输入1或0:\n\t1:升序\n\t0:降序\n");
+				scanf("%d", &temp);
+				sort_name(&head, temp);
+				break;
+			}
+			break;
+		case 8:
+			exit(0);
+			break;
+		default:
+			printf("输错了，再来一次\n");
+		}
+		system("pause");
+		system("cls");
+	}
+	system("pause");
+	return 0;
+}
+
+int menu()
+{
+	int chus;
+	printf("\t通讯录\n\n");
+	printf("请输入(1 -- 8):\n");
+	printf("\t1.创建通讯录\n");
+	printf("\t2.显示通讯录\n");
+	printf("\t3.查询通讯录\n");
+	printf("\t4.修改通讯录\n");
+	printf("\t5.添加通讯录\n");
+	printf("\t6.删除通讯录\n");
+	printf("\t7.排序通讯录\n");
+	printf("\t8.退出\n");
+	scanf("%d", &chus);
+	return chus;
+}
+
+int create(linkList *head)
+{
+	linkList *s, *p;
+	p = head;
+	printf("请输入学号 姓名 电话,输入end结束\n");
+	while (1) {
+		s = (linkList*)malloc(sizeof(linkList));
+		scanf("%s", s->people.id);
+		if (!strcmp(s->people.id,"end")){
+			return 0;
+		}
+		scanf("%s", s->people.name);
+		scanf("%s", s->people.phone);
+
+		s->next = p->next;
+		p->next = s;
+		p = s;
+		Record++;
+	}
+	return 0;
+}
+
+int display(linkList *head)
+{
+	int i;
+	linkList *p;
+	p = head;
+	p = p->next;
+	printf("\t\t\t\t联系人\n");
+	printf("--------------------------------------------------------------------------------\n");
+	printf("\t\t学号\t\t姓名\t\t\t电话\n");
+	printf("--------------------------------------------------------------------------------\n");
+	for (i = 0; i < Record; i++, p = p->next) {
+		printf("%20s\t", p->people.id);
+		printf("%10s\t", p->people.name);
+		printf("%20s\n", p->people.phone);
+	}
+	
+	return 0;
+}
+
+int search(linkList *head, char *info)
+{
+	int i;
+	linkList *p;
+	p = head;
+	p = p->next;
+	for (i = 0; i < Record; i++, p = p->next) {
+		if ((!strcmp(p->people.id, info)) || (!strcmp(info,p->people.name))){
+			return i;
+		}
+	}
+	return -1;
+}
+
+int modify(linkList *head, char *pid)
+{
+	int i;
+	linkList *p;
+	p = head;
+	p = p->next;
+	for (i = 0; i < search(head, pid); i++) {
+		p = p->next;
+	}
+	printf("请输入新信息:\n");
+	scanf("%s", p->people.id);
+	scanf("%s", p->people.name);
+	scanf("%s", p->people.phone);
+	return 0;
+}
+
+int add2(linkList *head, char *pid)
+{
+	int i;
+	linkList *p, *s;
+	p = head;
+	p = p->next;
+	s = (linkList*)malloc(sizeof(linkList));
+	while( p->next!= NULL){
+		p = p->next;
+	}
+	printf("请输入需要添加的姓名和电话:\n");
+	strcpy(s->people.id, pid);
+	scanf("%s", s->people.name);
+	scanf("%s", s->people.phone);
+	if (search(head, s->people.id) == -1) {
+		s->next = p->next;
+		p->next = s;
+		Record++;
+	}
+	else {
+		printf("学号重复了\n");
+	}
+	return 0;
+}
+
+int delt(linkList *head, char *info)
+{
+	int i, n;
+	linkList *p, *s;
+	p = head;
+	n = search(head, info);
+	if (-1 == n) {
+		printf("没有找到\n");
+		return 0;
+	}
+	for (i = 0; i < n; i++) {
+		p = p->next;
+	}
+	p->next = p->next->next;
+	Record--;
+	return 0;
+}
+int compare(char *str1, char *str2) 
+{
+	int i;
+	for (i = 0; i < strlen(str1); i++) {
+		if (str1[i] < str2[i]) {
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int sort_id(linkList *head, int boolean)
+{
+	linkList *p, *pre;
+	pInfo temp;
+	if (boolean) {
+		for (p = head->next; p != NULL; p = p->next) {
+			for (pre = p->next; pre != NULL; pre = pre->next) {
+				if (0 == compare(p->people.id, pre->people.id)) {
+					temp = p->people;
+					p->people = pre->people;
+					pre->people = temp;
+				}
+			}
+		}
+	}
+	else {
+		for (p = head->next; p != NULL; p = p->next) {
+			for (pre = p->next; pre != NULL; pre = pre->next) {
+				if (1 == compare(p->people.id, pre->people.id)) {
+					temp = p->people;
+					p->people = pre->people;
+					pre->people = temp;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+int sort_name(linkList *head, int boolean)
+{
+	linkList *p, *pre;
+	pInfo temp;
+	if (boolean) {
+		for (p = head->next; p != NULL; p = p->next) {
+			for (pre = p->next; pre != NULL; pre = pre->next) {
+				if (0 == compare(p->people.name, pre->people.name)) {
+					temp = p->people;
+					p->people = pre->people;
+					pre->people = temp;
+				}
+			}
+		}
+	}
+	else {
+		for (p = head->next; p != NULL; p = p->next) {
+			for (pre = p->next; pre != NULL; pre = pre->next) {
+				if (1 == compare(p->people.name, pre->people.name)) {
+					temp = p->people;
+					p->people = pre->people;
+					pre->people = temp;
+				}
+			}
+		}
+	}
+	return 0;
+}
+```

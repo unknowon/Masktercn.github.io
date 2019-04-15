@@ -1,0 +1,70 @@
+---
+layout: post
+title: C语言 通讯录排序
+date: 2017-06-2 20:43:23.000000000 +09:00
+category: C Program
+---
+任务描述  
+输入n个朋友的信息，包括姓名、生日、电话号码，本题要求编写程序，按照年龄从大到小的顺序依次输出通讯录。题目保证所有人的生日均不相同。  
+功能要求  
+①输入格式:  
+输入第一行给出正整数n（<<10）。随后n行，每行按照“姓名 生日 电话号码”的格式给出一位朋友的信息，其中“姓名”是长度不超过10的英文字母组成的字符串，“生日”是yyyymmdd格式的日期，“电话号码”是不超过17位的数字及+、-组成的字符串。  
+②输出格式:  
+按照年龄从大到小输出朋友的信息，格式同输出。  
+③输入样例:  
+3  
+zhang 19850403 13912345678  
+wang 19821020 +86-0571-88018448  
+qian 19840619 13609876543  
+④输出样例:  
+  
+wang 19821020 +86-0571-88018448  
+qian 19840619 13609876543  
+zhang 19850403 13912345678  
+
+```c
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct {
+	char name[10];
+	long int birth;
+	char phone[17];
+}pInfo;
+
+int pInfoSort(pInfo *data, int n)
+{
+	int i, j;
+	pInfo temp;
+	for (i = 0; i < n; i++) {
+		for (j = i + 1; j < n; j++) {
+			if (data[i].birth > data[j].birth) {
+				temp = data[i];
+				data[i] = data[j];
+				data[j] = temp;
+			}
+		}
+	}
+	for (i = 0; i < n; i++) {
+		printf("%s  ", data[i].name);
+		printf("%ld  ", data[i].birth);
+		printf("%s\n", data[i].phone);
+	}
+	return 0;
+}
+
+int main()
+{
+	pInfo *data;
+	int n, i;
+	scanf("%d", &n);
+	data = (pInfo*)malloc(sizeof(pInfo) * n);
+	for (i = 0; i < n; i++) {
+		scanf("%s", data[i].name);
+		scanf("%ld", &data[i].birth);
+		scanf("%s", data[i].phone);	
+	}
+	pInfoSort(data, n);
+	system("pause");
+	return 0;
+}
+```

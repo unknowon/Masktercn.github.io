@@ -1,0 +1,91 @@
+---
+layout: post
+title: C语言 百分制成绩转五分制
+date: 2017-06-26 20:43:23.000000000 +09:00
+category: C Program
+---
+
+编程实现：要求编写程序将一个百分制成绩转换为五分制成绩。转换规则：
+
+大于等于90分为A；
+
+小于90且大于等于80为B；
+
+小于80且大于等于70为C；
+
+小于70且大于等于60为D；
+
+小于60为E。
+
+
+
+功能要求
+
+分别用用if-else和switch两种语句实现，并用函数实现。
+
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+char func1_switch(int data)
+{
+	data /= 10;
+	switch (data) {
+	case(9):
+		return 'A';
+		break;
+	case(10):
+		return 'A';
+		break;
+	case(8):
+		return 'B';
+		break;
+	case(7):
+		return 'C';
+		break;
+	case(6):
+		return 'D';
+		break;
+	default:
+		return 'E';
+	}
+}
+
+char func2_if(int data)
+{
+	if (data >= 90) {
+		return 'A';
+	}
+	else if (data >= 80 && data<90) {
+		return 'B';
+	}
+	else if (data >= 70 && data<80) {
+		return 'C';
+	}
+	else if (data >= 60 && data<70) {
+		return 'D';
+	}
+	else if (data<60 && data >= 0) {
+		return 'E';
+	}
+}
+
+int main()
+{
+	int score;
+	while (1) {
+		scanf("%d", &score);
+		printf("%c\n", func1_switch(score));
+		printf("%c\n", func2_if(score));
+	}
+	return 0;
+}
+```
+
+
+
+
+
+
+

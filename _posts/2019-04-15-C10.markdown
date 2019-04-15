@@ -1,0 +1,92 @@
+---
+layout: post
+title: C语言 二进制转任意进制
+date: 2017-06-28 20:43:23.000000000 +09:00
+category: C Program
+---
+二进制转任意进制
+--------
+
+任务描述
+将输入的0和1数字序列表示的二进制数转换为八进制、十六进制数。
+功能要求
+①将输入的0和1数字序列存放到数组中。
+②从终端输入要转换的进制。
+③将转换后的结果保存到数组中，并以适当的形式输出。
+④若要转换成任意进制数，程序应如何编写？
+
+```c
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct {
+	char elements[100];
+	int top;
+}Stack;
+
+int pow(int num, int n) {
+	int i, cheng = num;
+	if (n == 0) {
+		return 1;
+	}
+	for (i = 0; i < n-1; i++) {
+		num  = num * cheng;
+	}
+	return num;
+}
+int bin2dec(char *binary)
+{
+	int index = strlen(binary) - 1;
+	int i,n = 0;
+	int dec = 0;
+	for (i = index; i >= 0; i--) {
+		dec += (binary[i] - '0')* pow(2, n);
+		n++;
+	}
+	return dec;
+}
+
+int dec2eve(int dec, int jinZhi)
+{
+	Stack s;
+	int temp, index = 0, i;
+	s.top = 0;
+	while (dec) {
+		temp = dec % jinZhi;
+		if (temp < 10) {
+			s.elements[s.top] = temp + '0';
+			index++;
+			s.top++;
+		}
+		else {
+			s.elements[s.top] = temp - 10 + 'A';
+			index++;
+			s.top++;
+		}
+		dec /= jinZhi;
+	}
+	
+	for (i = 0; i < index; i++) {
+		s.top--;
+		printf("%c", s.elements[s.top]);
+		
+	}
+	printf("\n");
+}
+	
+
+int main()
+{
+	char bin[16];
+	int dec, jinzhi;
+	printf("输入一个二进制数:\n");
+	scanf("%s", bin);
+	dec = bin2dec(bin);
+	printf("十进制:%d", dec);
+	printf("\n输入要转换的进制: ");
+	scanf("%d", &jinzhi);
+	printf("%d进制:",jinzhi);
+	dec2eve(dec, jinzhi);
+	system("pause");
+	return 0;
+}
+```

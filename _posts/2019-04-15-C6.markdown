@@ -1,0 +1,108 @@
+---
+layout: post
+title: C语言 商业贷款计算器 等额本金 等额本息
+date: 2017-06-26 20:43:23.000000000 +09:00
+category: C Program
+---
+任务描述
+
+编程设计一个购房贷款计算器。
+
+基于“总价、首付、贷款年限、利息、贷款额度”信息，计算每月最低还款额度。需要能按“等额本金、等额本息”两种形式计算还款。
+
+功能要求
+
+①实现基于商业贷款的购房贷款计算。
+
+②输入办理贷款的各项具体数据，如银行利率、公积金利率、还贷利率和还贷年限等。
+
+③选择“等额本金、等额本息” 两种形式中的某一种还款形式。
+
+    ④输出相应的贷款金额和月还贷金额。
+
+
+
+//因为不太理解贷款，所以按照自己的理解来写了，望大家指正
+
+
+```c
+#include<stdio.h>
+#include<stdlib.h>
+
+int pow(double n, int num) 
+{
+	int i;
+	double zz = 1;
+	for (i = 0; i < num; i++) {
+		zz *= n;
+	}
+	return zz;
+}
+int dengEBenJin(int *data, double liLv)
+{
+	int evJin, nowXi, evZong = 0, zong = 0, nowJin;
+	int i;
+	if (data[0] > data[3]) {
+		printf("error:大于贷款额度\n");
+		return 0;
+	}
+	nowJin = data[0] - data[1];
+	evJin = (data[0] - data[1])/(data[2]*12);
+	for (i = 0; i < data[2] * 12; i++) {
+		nowXi = nowJin * liLv;
+		evZong = evJin + nowXi;
+		nowJin -= evJin;
+		zong += evZong;
+		printf("%d\n", evZong);
+	}
+	printf("总金额 = %d\n", zong);
+	return 0;
+}
+
+int dnegEBenXi(int *data, double liLv)
+{
+	int zong = 0;
+	int evZong = 0;
+	int i;
+	if (data[0] > data[3]) {
+		printf("error:大于贷款额度\n");
+		return 0;
+	}
+	zong = (data[0] - data[1])*(data[2] * 12) ;
+	zong *= liLv * ( pow((1 + liLv), (data[2] * 12)) );
+	zong /= ((pow((1 + liLv), (data[2] * 12))) - 1);
+	evZong = zong / (data[2] * 12);
+	for (i = 0; i < data[2] * 12; i++) {
+		printf("%d\n", evZong);
+	}
+	printf("总金额 = %d\n", zong);
+	return 0;
+}
+
+int main()
+{
+	long int data[4];
+	int i;
+	double liLv;
+	int func;
+	while (1) {
+		printf("输入总价,首付,贷款年限,贷款额度,月利率\n");
+		for (i = 0; i < 4; i++) {
+			scanf("%d", &data[i]);
+		}
+		scanf("%lf", &liLv);
+		printf("\t1.等额本金\n\t2.等额本息\n");
+		scanf("%d", &func);
+		switch (func) {
+		case 1:
+			dengEBenJin(data, liLv);
+			break;
+		case 2:
+			dnegEBenXi(data, liLv);
+			break;
+		}
+	}
+	system("pause");
+	return 0;
+}
+```

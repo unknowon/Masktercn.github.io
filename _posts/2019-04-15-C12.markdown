@@ -1,0 +1,92 @@
+---
+layout: post
+title: C语言 判断上三角矩阵
+date: 2017-06-2 20:43:23.000000000 +09:00
+category: C Program
+---
+任务描述
+
+上三角矩阵指主对角线以下的元素都为0的矩阵；主对角线为从矩阵的左上角至右下角的连线。
+
+功能要求
+
+①输入格式：
+
+输入第一行给出一个正整数TT，为待测矩阵的个数。接下来给出TT个矩阵的信息：每个矩阵信息的第一行给出一个不超过10的正整数nn。随后nn行，每行给出nn个整数，其间以空格分隔。
+
+②输出格式：每个矩阵的判断结果占一行。如果输入的矩阵是上三角矩阵，输出“YES”，否则输出“NO”。
+
+③输入样例：
+
+2
+
+3
+
+1 2 3
+
+0 4 5
+
+0 0 6
+
+2
+
+1 0
+
+-8 2
+
+④输出样例：
+
+YES
+
+NO
+
+```c
+#include<stdio.h>
+#include<stdlib.h>
+
+int judgeMatrix(int evMN)
+{
+	int i, j;
+	int **matrix;
+	matrix = (int**)malloc(sizeof(int)*evMN);
+	for (i = 0; i < evMN; i++) {
+		matrix[i] = (int*)malloc(sizeof(int)*evMN);
+	}
+	for (i = 0; i < evMN; i++) {
+		for (j = 0; j < evMN; j++) {
+			scanf("%d", &matrix[i][j]);
+		}
+	}
+	for (i = 0; i < evMN; i++) {
+		for (j = 0; j < i; j++) {
+			if (matrix[i][j] != 0) {
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
+int main()
+{
+	int MNum, evMN;
+	int *result;
+	int i;
+	scanf("%d", &MNum);
+	result = (int*)malloc(sizeof(int)* MNum);
+	for(i = 0; i < MNum; i++){
+		scanf("%d", &evMN);
+		result[i] =  judgeMatrix(evMN);
+	}
+	for (i = 0; i < MNum; i++) {
+		if (result[i] == 1) {
+			printf("Yes\n");
+		}
+		else {
+			printf("No\n");
+		}
+	}
+	system("pause");
+	return 0;
+}
+```

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>C语言 商业贷款计算器 等额本金 等额本息</title>
+  <meta name="description" content="任务描述">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C语言 商业贷款计算器 等额本金 等额本息">
+  <meta name="twitter:description" content="任务描述">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="C语言 商业贷款计算器 等额本金 等额本息">
+  <meta property="og:description" content="任务描述">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2017/06/C6/">
+  <link rel="alternate" type="application/rss+xml" title="Maskter" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 Maskter 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Maskter logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Maskter" class="blog-button">Maskter</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">A blog for Sichao Wang</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">write my coding problem & life idea.</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">Blog</a></li>
+                
+                  <li class="navigation__item"><a href="/categoryList/categoryList/#blog" title="Blog's Category">Category</a></li>
+                
+                  <li class="navigation__item"><a href="https://github.com/Masktercn" title="My Projects on Github">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <!-- <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li> -->
+
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-06-26 19:43:23 +0800" itemprop="datePublished" class="post-meta__date date">2017-06-26</time> &#8226; <span class="post-meta__tags tags">C Program</span>
+    </div>
+    <h1 class="post-title">C语言 商业贷款计算器 等额本金 等额本息</h1>
+  </header>
+
+  <section class="post">
+    <p>任务描述</p>
+
+<p>编程设计一个购房贷款计算器。</p>
+
+<p>基于“总价、首付、贷款年限、利息、贷款额度”信息，计算每月最低还款额度。需要能按“等额本金、等额本息”两种形式计算还款。</p>
+
+<p>功能要求</p>
+
+<p>①实现基于商业贷款的购房贷款计算。</p>
+
+<p>②输入办理贷款的各项具体数据，如银行利率、公积金利率、还贷利率和还贷年限等。</p>
+
+<p>③选择“等额本金、等额本息” 两种形式中的某一种还款形式。</p>
+
+<p>    ④输出相应的贷款金额和月还贷金额。</p>
+
+<p>//因为不太理解贷款，所以按照自己的理解来写了，望大家指正</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">pow</span><span class="p">(</span><span class="kt">double</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num</span><span class="p">)</span> 
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="kt">double</span> <span class="n">zz</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">zz</span> <span class="o">*=</span> <span class="n">n</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">zz</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">dengEBenJin</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">double</span> <span class="n">liLv</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">evJin</span><span class="p">,</span> <span class="n">nowXi</span><span class="p">,</span> <span class="n">evZong</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zong</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nowJin</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"error:大于贷款额度</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">nowJin</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+	<span class="n">evJin</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">12</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">nowXi</span> <span class="o">=</span> <span class="n">nowJin</span> <span class="o">*</span> <span class="n">liLv</span><span class="p">;</span>
+		<span class="n">evZong</span> <span class="o">=</span> <span class="n">evJin</span> <span class="o">+</span> <span class="n">nowXi</span><span class="p">;</span>
+		<span class="n">nowJin</span> <span class="o">-=</span> <span class="n">evJin</span><span class="p">;</span>
+		<span class="n">zong</span> <span class="o">+=</span> <span class="n">evZong</span><span class="p">;</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">evZong</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"总金额 = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">zong</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">dnegEBenXi</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">double</span> <span class="n">liLv</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">zong</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">evZong</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"error:大于贷款额度</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">zong</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)</span> <span class="p">;</span>
+	<span class="n">zong</span> <span class="o">*=</span> <span class="n">liLv</span> <span class="o">*</span> <span class="p">(</span> <span class="n">pow</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">liLv</span><span class="p">),</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span><span class="p">))</span> <span class="p">);</span>
+	<span class="n">zong</span> <span class="o">/=</span> <span class="p">((</span><span class="n">pow</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">liLv</span><span class="p">),</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="n">evZong</span> <span class="o">=</span> <span class="n">zong</span> <span class="o">/</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">evZong</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"总金额 = %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">zong</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">long</span> <span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="kt">double</span> <span class="n">liLv</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">func</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"输入总价,首付,贷款年限,贷款额度,月利率</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+		<span class="p">}</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">liLv</span><span class="p">);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\t</span><span class="s">1.等额本金</span><span class="se">\n\t</span><span class="s">2.等额本息</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">func</span><span class="p">);</span>
+		<span class="k">switch</span> <span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+			<span class="n">dengEBenJin</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">liLv</span><span class="p">);</span>
+			<span class="k">break</span><span class="p">;</span>
+		<span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+			<span class="n">dnegEBenXi</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">liLv</span><span class="p">);</span>
+			<span class="k">break</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="n">system</span><span class="p">(</span><span class="s">"pause"</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
+</article>
+
+<!-- <section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/06/C7/" title="link to C语言 高速公路超速处罚">C语言 高速公路超速处罚</a></h2>
+       <p class="excerpt">任务描述按照规定，在高速公路上行使的机动车，超出本车道限速的10%则处200元罚款；若超出50%，就要吊销驾驶证。请编写程序根据车速和限速自动判别对该机动车的处理。功能要求①输入格式:输入在一行中给出2个正整数，分别对应车速和限速，其间以空格分隔。②输出格式:在一行中输出处理意见：若属于正常行驶，则输出“OK”；若应处罚款，则输出“Exceed x%. Ticket 200”；若应吊销驾驶证，则输出“Exceedx%. License Revoked”。其中x是超速的百分比，精确到整数。③...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-06-26 19:43:23 +0800" class="post-list__meta--date date">2017-06-26</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2017/06/C7/>继续阅读</a></div>
+   </div>
+   
+
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/06/C5/" title="link to C语言 集合运算 并、交，相对补，对称差，判断两个集合是否相等，求集合幂集">C语言 集合运算 并、交，相对补，对称差，判断两个集合是否相等，求集合幂集</a></h2>
+       <p class="excerpt">任务描述编写程序实现两个集 合的并、交，相对补，对称差的运算并判断两个集合是否相等?功能要求①输入集合A与集合B的元素。②输出集合A与B的并、交、相对补、差、对称差运算。③输出集合A与B是否相等的断定结果。④输出集合A与B的幂集。#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;int unionSets(int *A, int *B, int lenA, int lenB)//并集{	int i, j;	int flag, index = le...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-06-26 19:43:23 +0800" class="post-list__meta--date date">2017-06-26</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2017/06/C5/>继续阅读</a></div>
+   </div>
+   
+</section> -->
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2017/06/C6/";
+        this.page.identifier = "/2017/06/C6/";
+    };
+
+    var disqus_shortname = 'maskter';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+        <!--
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2019-04-15 生成，感谢 <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 <a href="http://maskter.cn">@Maskter</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2019</span>
+        -->
+    </footer> 
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

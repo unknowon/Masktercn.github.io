@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>C语言 求数字乘积根</title>
+  <meta name="description" content="任务描述">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C语言 求数字乘积根">
+  <meta name="twitter:description" content="任务描述">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="C语言 求数字乘积根">
+  <meta property="og:description" content="任务描述">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2017/06/C11/">
+  <link rel="alternate" type="application/rss+xml" title="Maskter" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 Maskter 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Maskter logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Maskter" class="blog-button">Maskter</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">A blog for Sichao Wang</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">write my coding problem & life idea.</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">Blog</a></li>
+                
+                  <li class="navigation__item"><a href="/categoryList/categoryList/#blog" title="Blog's Category">Category</a></li>
+                
+                  <li class="navigation__item"><a href="https://github.com/Masktercn" title="My Projects on Github">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <!-- <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li> -->
+
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-06-28 19:43:23 +0800" itemprop="datePublished" class="post-meta__date date">2017-06-28</time> &#8226; <span class="post-meta__tags tags">C Program</span>
+    </div>
+    <h1 class="post-title">C语言 求数字乘积根</h1>
+  </header>
+
+  <section class="post">
+    <p>任务描述</p>
+
+<p>从终端输入正整数，求该整数的数字乘积根。</p>
+
+<p>功能要求</p>
+
+<p>①本程序要求可以连续求得多个整数的数字乘积根，直到用户输入数字0时，退出程序。</p>
+
+<p>②在主函数中输入正整数。</p>
+
+<p>③编写函数muti()，把输入的正整数作为参数，求该整数数字乘积根。</p>
+
+<p>④在主函数中输出求得的整数的整数乘积根。</p>
+
+<p>⑤尝试用递归函数求解任务</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">muti</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">char</span> <span class="n">result</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">temp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">'0'</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">temp</span> <span class="o">*=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'0'</span><span class="p">);</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">temp</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">temp</span><span class="p">);</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="n">itoa</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+		<span class="n">muti</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">char</span> <span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">gets</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+		<span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'0'</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">muti</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">system</span><span class="p">(</span><span class="s">"pause"</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
+</article>
+
+<!-- <section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/06/C17/" title="link to C语言 通讯录">C语言 通讯录</a></h2>
+       <p class="excerpt">任务描述使用C语言实现通讯录。功能要求（1）创建通讯录。输入学生的姓名、学号和电话号码等，并将它们存放在对应的数组中；每输入一组数据，记录数增1。（2）显示通讯录。将记录学生姓名、学号和电话号码的数组中的数据一一输出到屏幕上，可以根据实际记录数确定循环次数。（3）查询通讯录。分别按学号和姓名进行查询，查询时将输入的信息通过循环与相应数组成员一一进行比较。（4）修改通讯录。输入需要修改记录的学号，通过循环查找到该记录后，再输入新数据替代原有数据。（5）添加通讯录。判断输入的学号是否重复，若不...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-06-30 19:43:23 +0800" class="post-list__meta--date date">2017-06-30</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2017/06/C17/>继续阅读</a></div>
+   </div>
+   
+
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/06/C10/" title="link to C语言 二进制转任意进制">C语言 二进制转任意进制</a></h2>
+       <p class="excerpt">二进制转任意进制任务描述将输入的0和1数字序列表示的二进制数转换为八进制、十六进制数。功能要求①将输入的0和1数字序列存放到数组中。②从终端输入要转换的进制。③将转换后的结果保存到数组中，并以适当的形式输出。④若要转换成任意进制数，程序应如何编写？#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;typedef struct {	char elements[100];	int top;}Stack;int pow(int num, int n) ...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-06-28 19:43:23 +0800" class="post-list__meta--date date">2017-06-28</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2017/06/C10/>继续阅读</a></div>
+   </div>
+   
+</section> -->
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2017/06/C11/";
+        this.page.identifier = "/2017/06/C11/";
+    };
+
+    var disqus_shortname = 'maskter';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+        <!--
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2019-04-15 生成，感谢 <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 <a href="http://maskter.cn">@Maskter</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2019</span>
+        -->
+    </footer> 
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>

@@ -1,0 +1,157 @@
+---
+layout: post
+title: C语言 特殊数问题 回文数 素数 亲密数 水仙花数
+date: 2017-06-26 20:43:23.000000000 +09:00
+category: C Program
+---
+任务描述
+
+编程实现：计算1～n之间的特殊数：
+
+①回文数；②素数；③亲密数；④水仙花数。
+
+（2）功能要求
+
+①采用模块化程序设计方法，每个特殊数的计算用一个函数实现。
+
+②主程序设计一个功能菜单，通过菜单调用各个子函数，格式如下：
+
+0．退出
+
+1．回文数
+
+2．素数
+
+3．亲密数
+
+4．水仙花数
+
+
+```c
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+int isHui(int num)
+{
+	int temp;
+	int sum = 0;
+	temp = num;
+	while (num) {
+		sum = sum * 10 + num % 10;
+		num /= 10;
+	}
+	if (temp == sum) {
+		return 1;
+	}
+	return 0;
+}
+
+void huiwen(int mx)
+{
+	int i;
+	for (i = 1; i < mx; i++) {
+		if (isHui(i)) {
+			printf("%d\n", i);
+		}
+	}
+}
+
+int isSu(int data)
+{
+	int i;
+	if (data < 2) {
+		return 0;
+	}
+	for (i = 2; i <= sqrt(data); i++) {
+		if (data%i == 0) {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+void prime(int mx)
+{
+	int i;
+	for (i = 1; i <= mx; i++) {
+		if (isSu(i)) {
+			printf("%d\n", i);
+		}
+	}
+}
+
+int qinmishu(int mx)
+{
+	int a, b, temp, i;
+	for (a = 1; a<mx; a++) {
+		for (b = 0, i = 1; i <= a / 2; i++) {
+			if (!(a%i)) {
+				b += i;
+			}
+		}
+		for (temp = 0, i = 1; i <= b / 2; i++) {
+			if (!(b%i)) {
+				temp += i;
+			}
+		}
+		if (temp == a&&a < b) {
+			printf("%4d--%4d\n", a, b);
+		}
+	}
+}int shuixianhua(int mx)
+{
+	int n, a, b, c;
+	if (mx > 1000) {
+		mx = 1000;
+	}
+	if (mx < 100) {
+		return 0;
+	}
+	n = 100;
+	while (n<mx) {
+		a = n / 100;
+		b = n % 100 / 10;
+		c = n % 10;
+		if (n == a*a*a + b*b*b + c*c*c) {
+			printf("%d\n", n);
+		}
+		n++;
+	}
+}
+
+int main()
+{
+	int inp;
+	int func;
+	while (1) {
+		printf("\n");
+		printf("输入范围");
+		scanf("%d", &inp);
+		printf("\t0.退出\n\t1.回文数\n\t2.素数\n\t3.亲密数\n\t4.水仙花数\n");
+		scanf("%d", &func);
+		printf("\n");
+		switch (func) {
+		case 0:
+			exit(0);
+			break;
+		case 1:
+			huiwen(inp);
+			break;
+		case 2:
+			prime(inp);
+			break;
+		case 3:
+			qinmishu(inp);
+			break;
+		case 4:
+			shuixianhua(inp);
+			break;
+		default:
+			printf("输入有错额，再来一次\n");
+		}
+	}
+	system("pause");
+	return 0;
+}
+```

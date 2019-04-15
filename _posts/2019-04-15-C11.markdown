@@ -1,0 +1,61 @@
+---
+layout: post
+title: C语言 求数字乘积根
+date: 2017-06-28 20:43:23.000000000 +09:00
+category: C Program
+---
+任务描述
+
+从终端输入正整数，求该整数的数字乘积根。
+
+功能要求
+
+①本程序要求可以连续求得多个整数的数字乘积根，直到用户输入数字0时，退出程序。
+
+②在主函数中输入正整数。
+
+③编写函数muti()，把输入的正整数作为参数，求该整数数字乘积根。
+
+④在主函数中输出求得的整数的整数乘积根。
+
+⑤尝试用递归函数求解任务
+
+```c
+#include<stdio.h>
+#include<stdlib.h>
+
+int muti(char *data)
+{
+	char result[10];
+	int temp=1, i;
+	for (i = 0; i < strlen(data); i++) {
+		if (data[i] != '0') {
+			temp *= (data[i] - '0');
+		}
+	}
+	if (temp <= 9) {
+		printf("%d\n", temp);
+		return 0;
+	}
+	else {
+		itoa(temp, result, 10);
+		muti(result);
+	}
+}
+
+int main()
+{
+	char data[10];
+	int len;
+	while (1) {
+		gets(data);
+		len = strlen(data);
+		if (len == 1 && data[0] == '0') {
+			return 0;
+		}
+		muti(data);
+	}
+	system("pause");
+	return 0;
+}
+```

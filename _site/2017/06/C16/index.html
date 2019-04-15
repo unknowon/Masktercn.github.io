@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>C语言 链表 求某班20名学生的最高成绩</title>
+  <meta name="description" content="任务描述         某班级有20名学生,要求从键盘输入每个学生的课程成绩（百分制），并输出最高成绩者。功能要求             ①找出成绩最高者，并输出该成绩             ②用链表实现存储（每名学生包括姓名和成绩两项），并用函数实现链表的创建，输出和查找```c#include#incl...">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="C语言 链表 求某班20名学生的最高成绩">
+  <meta name="twitter:description" content="任务描述         某班级有20名学生,要求从键盘输入每个学生的课程成绩（百分制），并输出最高成绩者。功能要求             ①找出成绩最高者，并输出该成绩             ②用链表实现存储（每名学生包括姓名和成绩两项），并用函数实现链表的创建，输出和查找```c#include#incl...">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="C语言 链表 求某班20名学生的最高成绩">
+  <meta property="og:description" content="任务描述         某班级有20名学生,要求从键盘输入每个学生的课程成绩（百分制），并输出最高成绩者。功能要求             ①找出成绩最高者，并输出该成绩             ②用链表实现存储（每名学生包括姓名和成绩两项），并用函数实现链表的创建，输出和查找```c#include#incl...">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2017/06/C16/">
+  <link rel="alternate" type="application/rss+xml" title="Maskter" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+  <body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+    
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url('/assets/images/background-cover.jpg')">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 Maskter 的主页" class="blog-button"><img src="/assets/images/avatar.jpg" width="80" alt="Maskter logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for Maskter" class="blog-button">Maskter</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">A blog for Sichao Wang</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">write my coding problem & life idea.</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="Visit blog" class="blog-button">Blog</a></li>
+                
+                  <li class="navigation__item"><a href="/categoryList/categoryList/#blog" title="Blog's Category">Category</a></li>
+                
+                  <li class="navigation__item"><a href="https://github.com/Masktercn" title="My Projects on Github">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+
+  
+
+  
+
+  
+
+  <!-- RSS -->
+  <!-- <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li> -->
+
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-slate"></div>
+    
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-06-02 19:43:23 +0800" itemprop="datePublished" class="post-meta__date date">2017-06-02</time> &#8226; <span class="post-meta__tags tags">C Program</span>
+    </div>
+    <h1 class="post-title">C语言 链表 求某班20名学生的最高成绩</h1>
+  </header>
+
+  <section class="post">
+    <p>任务描述<br />
+         某班级有20名学生,要求从键盘输入每个学生的课程成绩（百分制），并输出最高成绩者。<br />
+功能要求<br />
+             ①找出成绩最高者，并输出该成绩<br />
+             ②用链表实现存储（每名学生包括姓名和成绩两项），并用函数实现链表的创建，输出和查找</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+</span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">score</span><span class="p">;</span>
+<span class="p">}</span><span class="n">t_student</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span> <span class="p">{</span>
+	<span class="n">t_student</span> <span class="n">stu</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span><span class="n">linkList</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">createList</span><span class="p">(</span><span class="n">linkList</span> <span class="o">*</span><span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
+<span class="p">{</span>
+	<span class="n">linkList</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="n">p</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">linkList</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">linkList</span><span class="p">));</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">stu</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">stu</span><span class="p">.</span><span class="n">score</span><span class="p">);</span>
+		<span class="n">s</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+		<span class="n">p</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">output</span><span class="p">(</span><span class="n">t_student</span> <span class="o">*</span><span class="n">stu</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"%s   "</span><span class="p">,</span> <span class="n">stu</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">stu</span><span class="o">-&gt;</span><span class="n">score</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="n">t_student</span> <span class="o">*</span><span class="n">stu</span><span class="p">,</span> <span class="n">linkList</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">linkList</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+	<span class="n">p</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="o">*</span><span class="n">stu</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">stu</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">stu</span><span class="p">.</span><span class="n">score</span> <span class="o">&gt;</span> <span class="n">stu</span><span class="o">-&gt;</span><span class="n">score</span><span class="p">)</span> <span class="p">{</span>
+			<span class="o">*</span><span class="n">stu</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">stu</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">linkList</span> <span class="n">head</span><span class="p">;</span>
+	<span class="n">head</span><span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="n">t_student</span> <span class="n">result</span><span class="p">;</span>
+	<span class="n">createList</span><span class="p">(</span><span class="o">&amp;</span><span class="n">head</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+	<span class="n">find</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">head</span><span class="p">);</span>
+	<span class="n">output</span><span class="p">(</span><span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>
+	<span class="n">system</span><span class="p">(</span><span class="s">"pause"</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
+</article>
+
+<!-- <section class="read-more">
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">最近的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/06/C1/" title="link to C语言 百分制成绩转五分制">C语言 百分制成绩转五分制</a></h2>
+       <p class="excerpt">编程实现：要求编写程序将一个百分制成绩转换为五分制成绩。转换规则：大于等于90分为A；小于90且大于等于80为B；小于80且大于等于70为C；小于70且大于等于60为D；小于60为E。功能要求分别用用if-else和switch两种语句实现，并用函数实现。#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;char func1_switch(int data){	data /= 10;	switch (data) {	case(9):		ret...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-06-26 19:43:23 +0800" class="post-list__meta--date date">2017-06-26</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2017/06/C1/>继续阅读</a></div>
+   </div>
+   
+
+   
+   
+   <div class="read-more-item">
+       <span class="read-more-item-dim">更早的文章</span>
+       <h2 class="post-list__post-title post-title"><a href="/2017/06/C15/" title="link to C语言 通讯录排序">C语言 通讯录排序</a></h2>
+       <p class="excerpt">任务描述输入n个朋友的信息，包括姓名、生日、电话号码，本题要求编写程序，按照年龄从大到小的顺序依次输出通讯录。题目保证所有人的生日均不相同。功能要求①输入格式:输入第一行给出正整数n（«10）。随后n行，每行按照“姓名 生日 电话号码”的格式给出一位朋友的信息，其中“姓名”是长度不超过10的英文字母组成的字符串，“生日”是yyyymmdd格式的日期，“电话号码”是不超过17位的数字及+、-组成的字符串。②输出格式:按照年龄从大到小输出朋友的信息，格式同输出。③输入样例:3zhang 198...&hellip;</p>
+       <div class="post-list__meta"><time datetime="2017-06-02 19:43:23 +0800" class="post-list__meta--date date">2017-06-02</time> &#8226; <span class="post-list__meta--tags tags"></span><a class="btn-border-small" href=/2017/06/C15/>继续阅读</a></div>
+   </div>
+   
+</section> -->
+
+<section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2017/06/C16/";
+        this.page.identifier = "/2017/06/C16/";
+    };
+
+    var disqus_shortname = 'maskter';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+
+
+            <section class="footer">
+    <footer>
+        <!--
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2019-04-15 生成，感谢 <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 <a href="http://maskter.cn">@Maskter</a> 创建，采用 <a href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a href="https://github.com/onevcat/OneV-s-Den">本站源码</a> - &copy; 2019</span>
+        -->
+    </footer> 
+</section>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+    
+  </body>
+
+</html>
